@@ -65,3 +65,61 @@ vue를 막 입문하시는 분들은 컴포지션 api보다 옵션 api를 먼저
 - 구글 확장 프로그램 vue.js devtools 설치하기
 
 > 참고내용 https://joshua1988.github.io/vue-camp/textbook.html
+
+데이터의 변화에 따라서 화면에 UI 값이 바뀌는 것이 바로 뷰에서 추구하는 **리액티비티 (Reactivity)**라고 하는 개념이다.
+
+### new Proxy란?
+
+```ts
+<div id="app"></div>
+
+<script>
+  const data = {
+    a: 10,
+  };
+
+  let app = new Proxy(data, {
+    //---> new Proxy는 api 동작이다.
+    set() {},
+    get() {
+      console.log("안녕");
+    },
+  });
+</script>
+```
+
+- `new Proxy`라고 하는 것이 결국에 이 데이터라고 하는 객체를 모방한 다음에 그 동작을 추가했다고 보면 된다. 여기서 `get`이라고 하는 것이 이 객체의 속성을 접근할 때마다 출력할 내용이라고 보면 됩니다.
+
+```ts
+let app = new Proxy(data, {
+  //---> new Proxy는 api 동작이다.
+  get() {
+    console.log("값 접근");
+  },
+  set() {
+    console.log("값 갱신");
+  },
+});
+```
+
+- get 함수에 입력된 '값 접근' 이라는 값이 나오고 app.a = 20 이라는 값을 입력하게 되면 '값 갱신' 이라는 값이 나온다.
+- 이런 것들이 Proxy를 통해서 이 객체의 동작을 정의하고 추가적으로 지정할 수 있는 것을 알 수 있다.
+
+```ts
+let app = new Proxy(data, {
+  //---> new Proxy는 api 동작이다.d
+  get() {
+    console.log("값 접근");
+  },
+  set(target, prop, newValue) {
+    target[prop] = newValue;
+    console.log("값 갱신");
+    render(newValue);
+  },
+});
+```
+
+⭐️ **vue3** 에서는 프록시라고 하는 API를 이용해서 화면을 변경하고 있다.⭐️
+프록시를 이용해서 간단한 리액티비티 시스템을 구현
+
+### Reactivity 차이점 (Vue2 & Vue3)

@@ -1,0 +1,28 @@
+<div id="app">
+  <!-- 렌더링 되는 곳 -->
+</div>
+
+<script>
+  const data = {
+    a: 10,
+  };
+
+  function render(sth) {
+    const div = document.querySelector("#app");
+    div.innerHTML = sth;
+  }
+
+  render(100000);
+
+  let app = new Proxy(data, {
+    //---> new Proxy는 api 동작이다.d
+    get() {
+      console.log("값 접근");
+    },
+    set(target, prop, newValue) {
+      target[prop] = newValue;
+      console.log("값 갱신");
+      render(newValue);
+    },
+  });
+</script>
