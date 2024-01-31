@@ -123,3 +123,7 @@ let app = new Proxy(data, {
 프록시를 이용해서 간단한 리액티비티 시스템을 구현
 
 ### Reactivity 차이점 (Vue2 & Vue3)
+
+> 읽어볼 내용 https://ko.vuejs.org/guide/extras/reactivity-in-depth.html <br /> https://v2.ko.vuejs.org/v2/guide/reactivity.html#ad
+
+데이터가 getter, setter에 의해 셋업이 됨으로 인해서 Watcher를 통해서 컴포넌트가 렌더가 되고 정확히는 컴포넌트 안에 렌더 펑션이 별도로 되어 있다. 그리고 최종적으로 Virtual DOM 트리로 화면에 UI가 그려지게 된다.
