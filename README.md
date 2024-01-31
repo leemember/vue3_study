@@ -127,3 +127,53 @@ let app = new Proxy(data, {
 > 읽어볼 내용 https://ko.vuejs.org/guide/extras/reactivity-in-depth.html <br /> https://v2.ko.vuejs.org/v2/guide/reactivity.html#ad
 
 데이터가 getter, setter에 의해 셋업이 됨으로 인해서 Watcher를 통해서 컴포넌트가 렌더가 되고 정확히는 컴포넌트 안에 렌더 펑션이 별도로 되어 있다. 그리고 최종적으로 Virtual DOM 트리로 화면에 UI가 그려지게 된다.
+
+### 뷰 인스턴스
+
+(vue3에선 애플리케이션 인스턴스라고 부름)
+
+```ts
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+<div id="app">{{ message }}</div>
+
+<script>
+  const { createApp, ref } = Vue;
+
+  createApp({
+    setup() {
+      const message = ref("Hello vue!zzzz");
+      return {
+        message,
+      };
+    },
+  }).mount("#app");
+</script>
+```
+
+이 화면의 영역 중에 어느 부분에다가 뷰의 인스턴스를 적용할지 하는 부분이 바로 **마운트** 하는 부분이라고 보면 된다.
+애플리케이션 인스턴스를 만들어내면 vue 개발자도구에 있는 root에서 확인할 수 있다.
+
+### vue2의 문법
+
+- **vue 인스턴스**라고 부름
+
+```ts
+new Vue({
+  el: "#app",
+});
+```
+
+### Vue3의 문법
+
+- **vue 애플리케이션 인스턴스**라고 부름
+
+```ts
+Vue.createApp({
+  data() {
+    return {
+      messages: "10",
+    };
+  },
+}).mount("#app");
+```
