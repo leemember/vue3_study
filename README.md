@@ -196,18 +196,63 @@ Vue.createApp({
 <!-- HTML -->
 <div id="app">
   {{ count }} // ---> vue에 Reactivity가 주입된 데이터 속성을 사용하는 방식이다.
+  <button v-on:click="addCount">+</button>
 </div>
 
 <!-- Vue script 구간 -->
 Vue.createApp({
-  data() { function() {
+  data() {
      return {
        count:0
     };
+  },
+ methods: {
+  addCount() {
+    this.count++
   }
- },
+ }
 }).mount("#app");
 ```
 
 인스턴스를 생성하고 mount를 해주면 된다. 마운트 하는 것이 xw이 생성한 애플리케이션 인스턴스를 어느 태그에 지정할건지 선정해주는 부분이다.
 뷰에서는 항상 `중괄호 두개 {{ }}`를 붙여서 표현하게 되는데 그것이 데이터에 정의된 값이 화면에 표현이 되는 것이라고 보면된다.
+
+`<button v-on:click="addCount">+</button>` 이 버튼이라고 하는 것에 `v-on` 이라고 하는 디렉티브라고 한다. 여기에 호출된 `addCount`는 메서드에 선언된 `addCount()`의 함수를 실행해준다.
+
+여기서 `v-`가 붙은 HTML Attribute가 뷰의 디렉티브다.
+
+### 💝 디렉티브
+
+```ts
+<!-- HTML -->
+<div id="app">
+  {{ count }}
+  <button v-on:click="addCount">+</button>
+</div>
+```
+
+여기서 `v-on:click` 뿐만 아니라 `v-on:mouseover` 등 여러가지 UI 이벤트들을 다 연결할 수 있다.
+
+`v-if`, `v-else`, `v-for`, `v-bind` 등 다양함!
+
+### v-for 예제
+
+```ts
+<!-- HTML -->
+<div id="app">
+  <ul>
+    <li v-for="item in items">
+     {{ item }} // items의 item 리스트들이 차례대로 렌더링된다.
+    </li>
+  </ul>
+</div>
+
+<!-- Vue script 구간 -->
+Vue.createApp({
+  data() {
+     return {
+       items: ['a','b','c']
+    };
+  }
+}).mount("#app");
+```
