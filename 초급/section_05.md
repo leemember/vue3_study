@@ -1,4 +1,4 @@
-# 📝 Vue CLI
+# 🍿 vue CLI 프로젝트 생성
 
 ### 프로젝트 시작
 
@@ -8,6 +8,7 @@
 
 ```sh
 $npm install -g @vue/cli
+$vue create 프로젝트명
 
 OR
 
@@ -19,7 +20,7 @@ $yarn global add @vue/cli
 ### 💚 실행
 
 ```sh
- $ cd vue3-app
+ $ cd 프로젝트명
  $ npm run serve
 ```
 
