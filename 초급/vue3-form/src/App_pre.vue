@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form action="" @submit.prevent="submitForm">
+    <form action="" @submit="submitForm">
       <div>
         <label for="userId">ID : </label>
         <input type="text" id="userId" v-model="username" />
@@ -16,40 +16,32 @@
 
 <script>
 import axios from "axios";
-import { ref } from "vue";
 
 export default {
-  /**
-   * data() {
+  data() {
     return {
       username: "",
       password: "",
     };
-  }
-  위와 같은 코드가 setup()으로 표현하면 ref를 사용해서 작업할 수가 있다.
-   */
+  },
+  methods: {
+    // event.preventDefault(); 이걸 생략하는 방법중에서는
+    //  <form action="" @submit="submitForm"> 이 부분에 @submit.prevent라고 하면 된다.
+    submitForm(event) {
+      event.preventDefault();
+      console.log("제출됨");
 
-  setup() {
-    // data 선언
-    const username = ref("");
-    const password = ref("");
+      const data = {
+        username: this.username,
+        password: this.password,
+      };
 
-    // methods
-    const submitForm = () => {
       axios
         .post("https://jsonplaceholder.typicode.com/users/", {
-          username: username.value,
-          password: password.value,
+          data,
         })
-        .then((res) => {
-          console.log("res", res);
-        });
-    };
-    return {
-      username,
-      password,
-      submitForm,
-    };
+        .then((res) => console.log(res));
+    },
   },
 };
 </script>
