@@ -6,7 +6,6 @@
 </template>
 
 <script>
-import { ref } from "vue";
 import { useMsg } from "../hooks/useMsg";
 
 export default {
