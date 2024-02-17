@@ -1,8 +1,8 @@
 <template>
-  <TodoHeader></TodoHeader>
+  <TodoHeader />
   <!-- <TodoList @하위컴포넌트 이벤트이름="상위컴포넌트의 메서드 이름"></TodoList> -->
   <TodoInput @add="addTodoItem" />
-  <TodoList :todoItems="todoItems"></TodoList>
+  <TodoList :todoItems="todoItems" @remove="removeTodoItem"></TodoList>
 </template>
 
 <script setup>
@@ -30,6 +30,11 @@ function addTodoItem(todo) {
   console.log("addTodoItem", todo);
   todoItems.value.push(todo);
   localStorage.setItem(todo, todo);
+}
+function removeTodoItem(item, index) {
+  console.log("dd");
+  todoItems.value.splice(index, 1);
+  localStorage.removeItem(item, item);
 }
 </script>
 

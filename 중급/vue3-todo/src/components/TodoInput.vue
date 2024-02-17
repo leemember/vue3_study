@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- V-mode에 todoInput 값을 넣어 바로 value 데이터를 제어 -->
     <input type="text" v-model="todoInput" />
     <button @click="addTodo">추가</button>
   </div>
@@ -8,6 +9,7 @@
 <script setup>
 import { ref, defineEmits } from "vue";
 
+// ref로 값 제어함
 const todoInput = ref("");
 
 const emit = defineEmits(["userChange"]);
