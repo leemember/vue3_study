@@ -5,22 +5,24 @@
   </div>
 </template>
 
-<script>
-import { ref } from "vue";
-export default {
-  setup() {
-    const todoInput = ref("");
+<script setup>
+import { ref, defineEmits } from "vue";
 
-    // methods
-    function addTodo() {
-      const todo = todoInput.value;
-      localStorage.setItem(todo, todo);
-    }
+const todoInput = ref("");
 
-    // setup은 무조건 return 해줘야함 !!! 주의!!!
-    return { todoInput, addTodo };
-  },
-};
+const emit = defineEmits(["userChange"]);
+
+// methods
+function addTodo() {
+  console.log("zz");
+  const todo = todoInput.value;
+  // this.$emit('') 과 동일한 이벤트발생 역할을 한다.
+  // 인자 1 : 이벤트명 / 인자 2 : 인자
+  emit("add", todo);
+  clearTodo();
+}
+
+const clearTodo = () => (todoInput.value = "");
 </script>
 
 <style lang="scss" scoped></style>

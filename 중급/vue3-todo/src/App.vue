@@ -1,6 +1,7 @@
 <template>
   <TodoHeader></TodoHeader>
-  <TodoInput></TodoInput>
+  <!-- <TodoList @하위컴포넌트 이벤트이름="상위컴포넌트의 메서드 이름"></TodoList> -->
+  <TodoInput @add="addTodoItem" />
   <TodoList :todoItems="todoItems"></TodoList>
 </template>
 
@@ -24,6 +25,12 @@ function fetchTodos() {
 }
 
 todoItems.value = fetchTodos();
+
+function addTodoItem(todo) {
+  console.log("addTodoItem", todo);
+  todoItems.value.push(todo);
+  localStorage.setItem(todo, todo);
+}
 </script>
 
 <style lang="scss" scoped></style>

@@ -129,3 +129,50 @@ export { useMsg };
 ## ✅ 단점
 
 - setup안에 사용되는 computed 또는 watch, watchEffect 등의 러닝커브가 있을 수도
+
+---
+
+### 이벤트 발생 - setup()
+
+- 이벤트 발생은 하위 컴포넌트에서 -> 상위 컴포넌트로 신호를 보내는 컴포넌트 통신 방식입니다. 컴포지션에서는 어떻게 컴포넌트 이벤트를 발생시킬 수 있는지 알아보겠습니다!
+
+#### 컴포넌트 이벤트 발생
+
+- 기존 인스턴스 옵션 속성으로 이벤트를 발생시키는 방법은 `$emit()` API 였습니다!
+
+#### 기존
+
+```ts
+this.$emit();
+```
+
+이런식으로 이벤트를 발생시켰다면
+
+#### context
+
+```ts
+context.emit("change");
+context.emit("change", 100); // change 이벤트 발생 후 인자 100을 같이 넘긴다.
+```
+
+#### 💚 이벤트를 하위컴포넌트에서 -> 상위컴포넌트로 보내는 법
+
+```ts
+<TodoList @하위컴포넌트 이벤트이름="상위컴포넌트의 메서드 이름"></TodoList>
+```
+TodoInput에서 
+
+```ts
+function addTodo() {
+  const todo = todoInput.value;
+  localStorage.setItem(todo, todo);
+  // this.$emit('') 과 동일한 이벤트발생 역할을 한다.
+  ✅ context.emit("add" -> 이벤트이름, todo);
+  clearTodo();
+}
+```
+이렇게 `add` 라는 이벤트를 썼음.
+
+```ts
+<TodoList @add=""></TodoList>
+```
